@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TUNE - Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: #1db954;
+      border-radius: 10px;
+    }
+    button {
+      background: black;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .music-list {
+      margin-top: 30px;
+    }
+    .song {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎵 My Music</h1>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <h2>Welcome, <span id="user"></span> 👋</h2>
+
+  <div class="music-list">
+    <div class="song">
+      <h3>Song 1 - 3 PEG</h3>
+      <audio id="song1" controls>
+        <source src="C:\Users\User\Music\3 PEG - Kannada Rapper Chandan Shetty _ Aindrita Ray _ ft.Vijeth (4K).mp3" type="audio/mpeg">
+      </audio>
+      <button onclick="playSong('song1')">Play</button>
+      <button onclick="pauseSong('song1')">Pause</button>
+    </div>
+    <div class="song">
+      <h3>Song 2 - Badtameez Dil</h3>
+      <audio id="song2" controls>
+        <source src="C:\Users\User\Music\Badtameez Dil Full Song HD Yeh Jawaani Hai Deewani _ PRITAM _ Ranbir Kapoor, Deepika Padukone.mp3" type="audio/mpeg">
+      </audio>
+      <button onclick="playSong('song2')">Play</button>
+      <button onclick="pauseSong('song2')">Pause</button>
+    </div>
+    <div class="song">
+      <h3>Song 3 - No Lie</h3>
+      <audio id="song3" controls>
+        <source src="C:\Users\User\Music\No Lie.mp3" type="audio/mpeg">
+      </audio>
+      <button onclick="playSong('song3')">Play</button>
+      <button onclick="pauseSong('song3')">Pause</button>
+    </div>
+  </div>
+
+  <script>
+    const user = localStorage.getItem("loggedInUser");
+    if(!user){
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("user").innerText = user;
+    }
+      function playSong(id){
+       document.getElementById(id).play();
+      }
+
+      function pauseSong(id){
+       document.getElementById(id).pause();
+      }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
