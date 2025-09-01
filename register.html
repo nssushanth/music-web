@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Music Website - Register</title>
+  <title>TUNE VAULT- Register</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: url('background.jpg') no-repeat center center fixed;
+      background: url('page1.jpg') no-repeat center center fixed;
       background-size: cover;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content: flex-end;
+      align-items: flex-end;
       height: 100vh;
       margin: 0;
     }
     .register-container {
-      background: white;
+      background: none;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+      box-shadow: none;
       width: 300px;
       text-align: center;
     }
@@ -30,7 +30,7 @@
       border-radius: 8px;
     }
     button {
-      background: #ee0979;
+      background: black;
       color: white;
       padding: 10px;
       width: 100%;
@@ -44,7 +44,7 @@
     }
     .error {
       color: red;
-      font-size: 14px;
+      font-size: 15px;
     }
     a { display: block; margin-top: 10px; }
   </style>
@@ -52,7 +52,7 @@
 <body>
   <div class="register-container">
     <h2>Register</h2>
-    <input type="text" id="regUser" placeholder="Username" required>
+    <input type="text" id="regUser" placeholder="Email or Username" required>
     <input type="password" id="regPass" placeholder="Password" required>
     <div class="error" id="regError"></div>
     <button onclick="register()">Sign Up</button>
@@ -66,13 +66,12 @@
       const error = document.getElementById("regError");
 
       if(username === "" || password === "") {
-        error.innerText = "Please fill all fields!";
+        error.innerText = "Email or Username is required...";
         return;
       }
 
       let users = JSON.parse(localStorage.getItem("users")) || [];
 
-      // check if user exists
       if(users.find(u => u.username === username)) {
         error.innerText = "User already exists!";
         return;
