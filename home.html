@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TUNE - Home</title>
+  <title>TUNE VAULT</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #121212;
       color: white;
       margin: 0;
-      padding: 20px;
+      padding-bottom: 100px;
     }
     header {
       display: flex;
@@ -17,80 +17,213 @@
       align-items: center;
       padding: 15px;
       background: #1db954;
-      border-radius: 10px;
     }
-    button {
-      background: black;
+    header h1 {
+      margin: 0;
+    }
+    .logout-btn {
+      background: red;
       border: none;
-      padding: 10px 20px;
+      padding: 8px 16px;
+      border-radius: 20px;
       color: white;
-      border-radius: 8px;
       cursor: pointer;
+      font-size: 14px;
+    }
+    .logout-btn:hover {
+      background: red;
     }
     .music-list {
-      margin-top: 30px;
+      margin: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
     }
     .song {
-      background: #1e1e1e;
+      background: #181818;
       padding: 15px;
       border-radius: 12px;
-      margin: 15px 0;
+      text-align: center;
+      transition: 0.3s;
+    }
+    .song:hover {
+      background: #282828;
+      transform: scale(1.05);
+    }
+    .song img {
+      width: 100%;
+      height: 180px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .song h3 {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .song button {
+      margin-top: 5px;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 20px;
+      background: #1db954;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .song button:hover {
+      background: #1ed760;
+    }
+    .player {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500%;
+      max-width: 90%;
+      background: #181818;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-radius: 16px;
+      border-top: 2px solid #282828;
+    }
+    .player img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+    .player-info {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    .player-info h4 {
+      margin: 0;
+      font-size: 16px;
+    }
+    .controls {
+      display: flex;
+      gap: 15px;
+    }
+    .controls button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .controls button:hover {
+      color: #1db954;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>🎵 My Music</h1>
-    <button onclick="logout()">Logout</button>
+    <h1>TUNE VAULT</h1>
+    <button class="logout-btn" onclick="logout()">Logout</button>
   </header>
 
-  <h2>Welcome, <span id="user"></span> 👋</h2>
-
   <div class="music-list">
-    <div class="song">
-      <h3>Song 1 - 3 PEG</h3>
-      <audio id="song1" controls>
-        <source src="C:\Users\User\Music\3 PEG - Kannada Rapper Chandan Shetty _ Aindrita Ray _ ft.Vijeth (4K).mp3" type="audio/mpeg">
-      </audio>
-      <button onclick="playSong('song1')">Play</button>
-      <button onclick="pauseSong('song1')">Pause</button>
+    <div class="song" onclick="playSelected(0)">
+      <img src="3peg.jpg" alt="3 PEG">
+      <h3>3 PEG - Chandan Shetty</h3>
     </div>
-    <div class="song">
-      <h3>Song 2 - Badtameez Dil</h3>
-      <audio id="song2" controls>
-        <source src="C:\Users\User\Music\Badtameez Dil Full Song HD Yeh Jawaani Hai Deewani _ PRITAM _ Ranbir Kapoor, Deepika Padukone.mp3" type="audio/mpeg">
-      </audio>
-      <button onclick="playSong('song2')">Play</button>
-      <button onclick="pauseSong('song2')">Pause</button>
+    <div class="song" onclick="playSelected(1)">
+      <img src="badtameez.jpg" alt="Badtameez Dil">
+      <h3>Badtameez Dil - Yeh Jawaani Hai Deewani</h3>
     </div>
-    <div class="song">
-      <h3>Song 3 - No Lie</h3>
-      <audio id="song3" controls>
-        <source src="C:\Users\User\Music\No Lie.mp3" type="audio/mpeg">
-      </audio>
-      <button onclick="playSong('song3')">Play</button>
-      <button onclick="pauseSong('song3')">Pause</button>
+    <div class="song" onclick="playSelected(2)">
+      <img src="no lie.jpg" alt="No Lie">
+      <h3>No Lie - Sean Paul ft. Dua Lipa</h3>
+    </div>
+  </div>
+
+  <audio id="audio1" src="C:\Users\User\OneDrive\Documents\New folder\3 PEG.mp3"></audio>
+  <audio id="audio2" src="C:\Users\User\OneDrive\Documents\New folder\Badtameez Dil.mp3"></audio>
+  <audio id="audio3" src="C:\Users\User\OneDrive\Documents\New folder\No Lie.mp3"></audio>
+
+  <div class="player">
+    <div class="player-info">
+      <img id="player-img" src="3peg.jpg" alt="cover">
+      <h4 id="player-title">Select a song</h4>
+    </div>
+    
+    <div class="controls">
+      <button onclick="prevSong()">⏮</button>
+      <button id="playPauseBtn" onclick="togglePlay()">▶</button>
+      <button onclick="nextSong()">⏭</button>
     </div>
   </div>
 
   <script>
-    const user = localStorage.getItem("loggedInUser");
-    if(!user){
-      window.location.href = "index.html";
-    } else {
-      document.getElementById("user").innerText = user;
+    const songs = [
+      {title: "3 PEG - Chandan Shetty", file: "audio1", cover: "3peg.jpg"},
+      {title: "Badtameez Dil - Yeh Jawaani Hai Deewani", file: "audio2", cover: "badtameez.jpg"},
+      {title: "No Lie - Sean Paul ft. Dua Lipa", file: "audio3", cover: "no lie.jpg"}
+    ];
+
+    let currentIndex = 0;
+    let isPlaying = false;
+
+    const playerImg = document.getElementById("player-img");
+    const playerTitle = document.getElementById("player-title");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+
+    function playSelected(index) {
+      stopAll();
+      currentIndex = index;
+      const song = songs[index];
+      const audio = document.getElementById(song.file);
+      playerImg.src = song.cover;
+      playerTitle.innerText = song.title;
+      audio.play();
+      isPlaying = true;
+      playPauseBtn.innerText = "⏸";
     }
-      function playSong(id){
-       document.getElementById(id).play();
-      }
 
-      function pauseSong(id){
-       document.getElementById(id).pause();
-      }
+    function togglePlay() {
+      const song = songs[currentIndex];
+      const audio = document.getElementById(song.file);
 
+      if (!isPlaying) {
+        audio.play();
+        isPlaying = true;
+        playPauseBtn.innerText = "⏸";
+      } else {
+        audio.pause();
+        isPlaying = false;
+        playPauseBtn.innerText = "▶";
+      }
+    }
+
+    function stopAll() {
+      songs.forEach(s => {
+        const a = document.getElementById(s.file);
+        a.pause();
+        a.currentTime = 0;
+      });
+      isPlaying = false;
+      playPauseBtn.innerText = "▶";
+    }
+
+    function nextSong() {
+      currentIndex = (currentIndex + 1) % songs.length;
+      playSelected(currentIndex);
+    }
+
+    function prevSong() {
+      currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+      playSelected(currentIndex);
+    }
+
+    // Logout function (redirects to login.html)
     function logout() {
-      localStorage.removeItem("loggedInUser");
-      window.location.href = "index.html";
+      alert("You have been logged out!");
+      window.location.href = "index.html"; // Merge with login file
     }
   </script>
 </body>
